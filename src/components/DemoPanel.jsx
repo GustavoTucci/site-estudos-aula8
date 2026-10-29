@@ -224,6 +224,76 @@ function ConditionalDemo() {
   );
 }
 
+function StateDemo() {
+  const [count, setCount] = useState(0);
+  return (
+    <div className="simple-demo">
+      <span className="output-label">ESTADO ATUAL</span>
+      <strong className="demo-big-number">{count}</strong>
+      <p>O valor muda e a interface acompanha a atualização.</p>
+      <div className="demo-actions">
+        <button className="small-action" onClick={() => setCount((value) => Math.max(0, value - 1))}>− diminuir</button>
+        <button className="small-action" onClick={() => setCount((value) => value + 1)}>+ aumentar</button>
+      </div>
+    </div>
+  );
+}
+
+function FormDemo() {
+  const [name, setName] = useState("");
+  return (
+    <div className="simple-demo">
+      <label className="field-label" htmlFor="form-name">Seu nome</label>
+      <input id="form-name" className="text-field" value={name} onChange={(event) => setName(event.target.value)} placeholder="Digite para validar" />
+      <p className="demo-feedback">{name.trim() ? `Olá, ${name.trim()}! Formulário válido.` : "Digite pelo menos um nome para continuar."}</p>
+    </div>
+  );
+}
+
+function EffectDemo() {
+  const [visits, setVisits] = useState(0);
+  return (
+    <div className="simple-demo">
+      <span className="output-label">EFEITO SINCRONIZADO</span>
+      <p className="demo-feedback">O título da página poderia acompanhar este contador.</p>
+      <button className="small-action" onClick={() => setVisits((value) => value + 1)}>Registrar visita ({visits})</button>
+    </div>
+  );
+}
+
+function ApiDemo() {
+  const [status, setStatus] = useState("idle");
+  function loadData() {
+    setStatus("loading");
+    window.setTimeout(() => setStatus("success"), 700);
+  }
+  return (
+    <div className="simple-demo">
+      <span className="output-label">RESPOSTA DA API</span>
+      <p className="demo-feedback">
+        {status === "idle" && "Clique para simular uma busca."}
+        {status === "loading" && "Carregando dados…"}
+        {status === "success" && "✓ 11 conceitos encontrados."}
+      </p>
+      <button className="small-action" onClick={loadData} disabled={status === "loading"}>Buscar conceitos</button>
+    </div>
+  );
+}
+
+function RouterDemo() {
+  const [route, setRoute] = useState("/");
+  return (
+    <div className="simple-demo">
+      <div className="route-tabs">
+        {["/", "/aulas", "/sobre"].map((item) => (
+          <button key={item} className={route === item ? "is-active" : ""} onClick={() => setRoute(item)}>{item}</button>
+        ))}
+      </div>
+      <p className="demo-feedback">Rota atual: <strong>{route}</strong></p>
+    </div>
+  );
+}
+
 const demos = {
   jsx: JsxDemo,
   componentes: ComponentDemo,
@@ -231,10 +301,15 @@ const demos = {
   "virtual-dom": VirtualDomDemo,
   listas: ListsDemo,
   condicional: ConditionalDemo,
+  state: StateDemo,
+  formularios: FormDemo,
+  "use-effect": EffectDemo,
+  apis: ApiDemo,
+  "react-router": RouterDemo,
 };
 
 export default function DemoPanel({ conceptId }) {
-  const Demo = demos[conceptId];
+  const Demo = demos[conceptId] || StateDemo;
   return (
     <section className={`demo-panel demo-panel--${conceptId}`} aria-label={`Experimento de ${conceptId}`}>
       <div className="demo-heading">

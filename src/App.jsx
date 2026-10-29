@@ -6,6 +6,7 @@ import { concepts } from "./data/concepts.js";
 
 const STORAGE_KEY = "react-em-campo-progress";
 const categories = ["Tudo", ...new Set(concepts.map((concept) => concept.category))];
+const conceptTotal = String(concepts.length).padStart(2, "0");
 
 function readProgress() {
   try {
@@ -24,7 +25,7 @@ function Header({ onHome, onProgress, learnedCount }) {
       <div className="header-note"><span className="header-pulse" /> caderno de interfaces reativas</div>
       <button className="header-progress" onClick={onProgress}>
         <span>progresso</span>
-        <strong>{String(learnedCount).padStart(2, "0")}<small> / 06</small></strong>
+        <strong>{String(learnedCount).padStart(2, "0")}<small> / {conceptTotal}</small></strong>
       </button>
     </header>
   );
@@ -37,7 +38,7 @@ function Hero({ learnedCount }) {
         <p className="eyebrow"><span>FRONT-END · AULA 08</span><span className="eyebrow-line" /></p>
         <h1>Interfaces<br />em <em>movimento.</em></h1>
         <p className="hero-description">
-          Seis ideias para entender como o React pensa — com espaço para experimentar cada uma delas.
+          Onze ideias para entender como o React pensa — com espaço para experimentar cada uma delas.
         </p>
         <a className="hero-link" href="#conceitos">Entrar no laboratório <span>↓</span></a>
       </div>
@@ -50,7 +51,7 @@ function Hero({ learnedCount }) {
         <span className="orbit-label orbit-label--two">componente</span>
         <span className="orbit-label orbit-label--three">interface</span>
         <div className="visual-caption">
-          <span>01—06</span>
+          <span>01—{conceptTotal}</span>
           <span>{learnedCount === concepts.length ? "Caderno completo." : `${concepts.length - learnedCount} ideias esperando por você.`}</span>
         </div>
       </div>
@@ -80,7 +81,7 @@ function Catalog({ learned, onOpen, onToggleLearned }) {
       <div className="section-heading">
         <div>
           <p className="eyebrow"><span>O MAPA</span><span className="eyebrow-line" /></p>
-          <h2>Seis peças.<br /><em>Um jeito novo de pensar.</em></h2>
+          <h2>{concepts.length} peças.<br /><em>Um jeito novo de pensar.</em></h2>
         </div>
         <p className="section-aside">Passe o mouse, escolha um tema e mexa no que aparece. É assim que a teoria começa a fazer sentido.</p>
       </div>
@@ -173,7 +174,7 @@ function ConceptDetail({ concept, learned, onBack, onToggleLearned, onNext }) {
         </aside>
       </div>
       <nav className="detail-pagination" aria-label="Navegar pelos conceitos">
-        <span>{concept.number} / 06</span>
+        <span>{concept.number} / {conceptTotal}</span>
         <button onClick={() => onNext(-1)} disabled={concepts[0].id === concept.id}>← anterior</button>
         <button onClick={() => onNext(1)} disabled={concepts.at(-1).id === concept.id}>próximo →</button>
       </nav>

@@ -65,4 +65,71 @@ export const concepts = [
     takeaway: "Renderize o que faz sentido para o estado atual dos dados.",
     code: `function Mensagem({ carregando }) {\n  return carregando\n    ? <p>Carregando…</p>\n    : <p>Tudo pronto.</p>;\n}`,
   },
+  {
+    id: "state",
+    number: "07",
+    title: "State e useState",
+    category: "Estado",
+    short: "Como armazenar informações e atualizar a interface.",
+    description: "State representa informações que podem mudar durante a vida de um componente. Com useState, cada atualização dispara uma nova renderização da interface.",
+    takeaway: "Guarde o que muda no estado e atualize-o com sua função setter.",
+    code: `const [contador, setContador] = useState(0);
+
+<button onClick={() => setContador(contador + 1)}>
+  {contador} cliques
+</button>`,
+  },
+  {
+    id: "formularios",
+    number: "08",
+    title: "Formulários",
+    category: "Interação",
+    short: "Como receber, validar e processar informações.",
+    description: "Formulários controlados mantêm seus campos sincronizados com o state. Assim, o React consegue validar os dados e decidir o que acontece no envio.",
+    takeaway: "Controle os campos, valide antes de enviar e dê retorno para a pessoa.",
+    code: `const [email, setEmail] = useState("");
+
+<input value={email}
+  onChange={(event) => setEmail(event.target.value)} />`,
+  },
+  {
+    id: "use-effect",
+    number: "09",
+    title: "useEffect",
+    category: "Efeitos",
+    short: "Como sincronizar componentes com sistemas externos.",
+    description: "useEffect executa uma lógica depois da renderização para sincronizar o componente com o navegador, timers, assinaturas ou outros sistemas externos.",
+    takeaway: "Use efeitos para sincronização, não para substituir o fluxo normal de renderização.",
+    code: `useEffect(() => {
+  document.title = \`Visitas: \${visitas}\`;
+}, [visitas]);`,
+  },
+  {
+    id: "apis",
+    number: "10",
+    title: "Consumo de APIs",
+    category: "Dados externos",
+    short: "Como buscar e apresentar dados de serviços externos.",
+    description: "Ao consumir uma API, a interface precisa representar os estados de carregamento, sucesso e erro. Essa clareza deixa a experiência previsível.",
+    takeaway: "Modele carregamento, dados e erro antes de renderizar a resposta da API.",
+    code: `useEffect(() => {
+  fetch("/api/aulas")
+    .then((response) => response.json())
+    .then(setAulas)
+    .catch(setError);
+}, []);`,
+  },
+  {
+    id: "react-router",
+    number: "11",
+    title: "React Router",
+    category: "Navegação",
+    short: "Como organizar páginas e navegação por URLs.",
+    description: "React Router relaciona URLs a componentes e permite navegar entre telas sem recarregar a aplicação, mantendo a experiência de uma SPA.",
+    takeaway: "Cada rota representa um lugar claro da aplicação e pode receber seus próprios componentes.",
+    code: `createBrowserRouter([
+  { path: "/", element: <Inicio /> },
+  { path: "/aulas", element: <Aulas /> },
+]);`,
+  },
 ];

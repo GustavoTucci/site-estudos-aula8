@@ -1,67 +1,102 @@
 # React em campo
 
-Um caderno de experiências interativas para aprender os fundamentos do React apresentados na Aula 08. Em vez de apenas ler definições, explore cada conceito, altere os exemplos e observe a interface responder.
+## Descrição
+
+**React em campo** é um laboratório visual e interativo para estudar conceitos fundamentais do React na Aula 08 de Front-end. A aplicação apresenta um mapa com 11 temas e permite abrir experimentos práticos para observar como cada conceito altera uma interface.
+
+Em vez de apenas consultar definições, a pessoa pode interagir com os exemplos, testar diferentes estados e acompanhar o próprio progresso de aprendizagem no navegador.
 
 ## Funcionalidades
 
-- Catálogo de seis conceitos com busca por texto e filtros por categoria.
-- Cartões interativos com descrições e exemplos de código.
-- Experimentos separados para JSX, composição de componentes, props, Virtual DOM, listas com keys e renderização condicional.
-- Progresso de aprendizagem salvo no navegador com `localStorage`; é possível filtrar o mapa para ver apenas os conceitos guardados.
-- Navegação entre conceitos, atalhos de teclado (`Esc` para voltar), estados vazios e layout responsivo.
+- Catálogo com 11 conceitos de React, organizados por categoria.
+- Busca por texto em títulos, descrições e categorias.
+- Filtros por categoria e opção para exibir somente os conceitos salvos no caderno.
+- Cartões com resumo, categoria, numeração e acesso ao experimento correspondente.
+- Página de detalhes para cada conceito, com descrição, demonstração interativa, código de exemplo e resumo principal.
+- Experimentos práticos de JSX, composição de componentes, props, Virtual DOM, listas e `keys`, renderização condicional, `state`, formulários, `useEffect`, consumo de APIs e React Router.
+- Marcação de conceitos como estudados, com contador de progresso.
+- Persistência do progresso no navegador usando `localStorage`.
+- Navegação entre conceitos pelos botões “anterior” e “próximo”.
+- Atalho `Esc` para sair da página de detalhes e voltar ao mapa.
+- Estados vazios para buscas sem resultado e para o caderno ainda não preenchido.
+- Layout responsivo para diferentes tamanhos de tela.
 
-## Conceitos de React utilizados
+## Conceitos utilizados
 
-- **JSX:** estrutura e expressões JavaScript entre chaves.
-- **Componentes:** interface dividida em peças reutilizáveis.
-- **Props:** informações enviadas do componente pai aos filhos.
-- **Virtual DOM:** o estado muda e React reconcilia a interface declarada com o DOM.
-- **Listas e keys:** arrays transformados com `map()` e identificados por chaves estáveis.
-- **Renderização condicional:** conteúdo ajustado ao estado, às buscas e às condições.
-- **Estado e efeitos:** `useState` para interações, `useEffect` para persistência e listeners, e `useMemo` para filtrar o catálogo.
+### Conceitos de React
+
+- **JSX:** sintaxe que permite descrever a estrutura da interface dentro do JavaScript, incluindo expressões entre chaves.
+- **Componentes:** divisão da interface em partes reutilizáveis, como cabeçalho, cartões, rodapé e painel de demonstração.
+- **Props:** dados e funções enviados de componentes pais para componentes filhos.
+- **Virtual DOM e reconciliação:** quando os dados mudam, o React compara a nova descrição da interface com a anterior e aplica as atualizações necessárias no DOM.
+- **Listas e `keys`:** uso de `map()` para transformar arrays em elementos JSX e de chaves estáveis para identificar cada item.
+- **Renderização condicional:** exibição de conteúdos diferentes conforme o estado da aplicação, os filtros e os resultados da busca.
+- **State e `useState`:** armazenamento de informações que mudam durante a interação, como contadores, campos de formulário, filtros e itens concluídos.
+- **Formulários controlados:** campos cujo valor é controlado pelo state do React, permitindo validar e responder às entradas da pessoa usuária.
+- **`useEffect`:** execução de efeitos após a renderização, como salvar o progresso no navegador e registrar ou remover listeners de teclado.
+- **Consumo de APIs:** representação dos estados de carregamento, sucesso e erro ao trabalhar com dados externos.
+- **React Router:** conceito de associação entre URLs e componentes para navegação em aplicações de página única (SPA).
+
+### Recursos e padrões usados no projeto
+
+- **`useMemo`:** memorização da lista filtrada de conceitos para evitar cálculos desnecessários durante as renderizações.
+- **`localStorage`:** armazenamento local do progresso para que os conceitos marcados continuem salvos após recarregar a página.
+- **Composição de componentes:** construção da tela a partir de componentes menores e especializados.
+- **Eventos e acessibilidade:** uso de eventos de clique e teclado, `aria-label` e `aria-pressed` para melhorar a interação com os controles.
+- **ES Modules:** organização do código em módulos JavaScript com `import` e `export`.
 
 ## Tecnologias
 
-- React
+- React 19
+- React DOM
 - Vite
-- JavaScript (ES modules)
+- JavaScript com ES Modules
+- HTML semântico
 - CSS responsivo
 
-## Executar localmente
+## Como executar
 
-Requer Node.js 20.19+ ou 22.12+.
+É necessário ter o Node.js 20.19+ ou 22.12+ instalado.
 
 ```bash
 npm install
 npm run dev
 ```
 
-O Vite informa o endereço local no terminal. Para gerar e conferir a versão de produção:
+O Vite informará no terminal o endereço local da aplicação.
+
+Para gerar e visualizar a versão de produção:
 
 ```bash
 npm run build
 npm run preview
 ```
 
-## Publicar no GitHub
+## Estrutura principal
 
-Para entregar como repositório público, crie um repositório vazio no GitHub e execute estes comandos dentro desta pasta:
-
-```bash
-git init
-git add .
-git commit -m "Adiciona laboratório interativo de React"
-git branch -M main
-git remote add origin https://github.com/SEU-USUARIO/react-em-campo.git
-git push -u origin main
+```text
+src/
+├── components/
+│   ├── Brand.jsx
+│   ├── ConceptCard.jsx
+│   └── DemoPanel.jsx
+├── data/
+│   └── concepts.js
+├── App.jsx
+├── main.jsx
+└── styles.css
 ```
 
-Ao criar o repositório, selecione a visibilidade pública. Não inclua `node_modules` nem `dist`; ambos já estão no `.gitignore`.
+- [`App.jsx`](./src/App.jsx): organiza as telas, o catálogo, a navegação e o progresso.
+- [`ConceptCard.jsx`](./src/components/ConceptCard.jsx): exibe cada conceito no catálogo.
+- [`DemoPanel.jsx`](./src/components/DemoPanel.jsx): renderiza os experimentos interativos.
+- [`concepts.js`](./src/data/concepts.js): reúne os dados, descrições e exemplos de código dos conceitos.
+- [`styles.css`](./src/styles.css): define o visual e o comportamento responsivo.
 
 ## Referências
 
+- [Documentação oficial do React](https://react.dev/learn)
 - [Projeto React de referência](https://github.com/deivisontakatu/projeto-react)
 - [Aplicação de referência](https://projeto-react-five-swart.vercel.app/)
-- [Documentação oficial do React](https://react.dev/learn)
 
-O projeto foi inspirado nos seis conceitos e no formato didático das referências, com estrutura visual e experiências próprias.
+O projeto foi inspirado nos conceitos e no formato didático das referências, com identidade visual e experiências próprias.
